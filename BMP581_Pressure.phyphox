@@ -1,4 +1,4 @@
-<phyphox version="1.12">
+<phyphox version="1.18">
     <title>Pressure, Temperature</title>
     <category>Keyfob</category>
 	<color>acd8a7</color>
@@ -61,7 +61,9 @@
             </value>
             <info label="Note: The reference height 0 is calculated from the average of the first 20 pressure samples">
             </info>
-        </view>		
+			<image src="qr-code.png" scale="1.0" lightFilter="none" darkFilter="none" />
+        </view>	
+		
     </views>
     <analysis optimization="true">
 		<first>
