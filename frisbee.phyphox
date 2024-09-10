@@ -1,7 +1,7 @@
 <phyphox version="1.12">
     <title>Frisbee</title>
     <category>Keyfob</category>
-	<color>acd8a7</color>
+	<color>33dfff</color>
     <description>BMP581</description>
 	<translations>	
 	</translations>	
@@ -77,6 +77,9 @@
             </graph>			
                        			
         </view>				
+		<view label="Share">		
+			<image src="qr-code.png" scale="1.0" lightFilter="none" darkFilter="none" />
+		</view>		
     </views>
     <analysis optimization="true">
 		<first>
