@@ -1,0 +1,147 @@
+<phyphox version="1.12">
+    <title>Acceleration V3 Float</title>
+    <category>Keyfob</category>
+	<color>33dfff</color>
+    <description>LSM6DSR Float</description>
+	<translations>	
+	</translations>	
+    <data-containers>
+		
+		<container size="1">acc_x_SI_count</container>
+		
+		
+		<container size="0">acc_timestamps</container>
+		<container size="0">gyr_timestamps</container>
+	
+		<container size="0">acc_x</container>
+		<container size="0">acc_y</container>
+		<container size="0">acc_z</container>
+		
+		<container size="0">gyr_x</container>
+		<container size="0">gyr_y</container>
+		<container size="0">gyr_z</container>
+				
+		<container size="1" init="1">en</container>
+		<container size="1" init="10">rate</container>
+		<container size="1" init="1">range_acc</container>
+		<container size="1" init="1">range_gyr</container>
+		<container size="1" init="1">format</container>
+		<container size="1" init="40">config_n_times</container>
+		<container size="1" init="0">average</container>
+
+		<container size="15" init="0,0.78,1.56,3.125,6.25,12.5,25,50,100,200,400,800,1600,3200,6400">rate_table</container>
+
+    </data-containers>
+    <input>
+        <bluetooth id="Keyfob" name="Keyfob" mode="notification"  mtu="247">
+			<!--en, rate, range acc, range gyr, format, eventsize, average -->
+			<config char="cddf1002-30f7-4671-8b43-5e40ba53514a" conversion="hexadecimal">03050101000F00</config>
+			<!--<config char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="0">en</config>
+			
+			<config char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="1">rate</config>
+			<config char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="2">range_acc</config>
+			<config char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="3">range_gyr</config>
+			<config char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="4">format</config>
+			<config char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="5">config_n_times</config>
+			<config char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="6">average</config>
+			-->
+			<output char="cddf1001-30f7-4671-8b43-5e40ba53514a" offset="0" repeating="16" conversion="float32LittleEndian">acc_timestamps</output>
+			<output char="cddf1001-30f7-4671-8b43-5e40ba53514a" offset="4" repeating="16" conversion="float32LittleEndian">acc_x</output>
+			<output char="cddf1001-30f7-4671-8b43-5e40ba53514a" offset="8" repeating="16" conversion="float32LittleEndian">acc_y</output>
+			<output char="cddf1001-30f7-4671-8b43-5e40ba53514a" offset="12" repeating="16" conversion="float32LittleEndian">acc_z</output>		
+			<output char="cddf1000-30f7-4671-8b43-5e40ba53514a" offset="0" repeating="16" conversion="float32LittleEndian">gyr_timestamps</output>
+			<output char="cddf1000-30f7-4671-8b43-5e40ba53514a" offset="4" repeating="16" conversion="float32LittleEndian">gyr_x</output>
+			<output char="cddf1000-30f7-4671-8b43-5e40ba53514a" offset="8" repeating="16" conversion="float32LittleEndian">gyr_y</output>
+			<output char="cddf1000-30f7-4671-8b43-5e40ba53514a" offset="12" repeating="16" conversion="float32LittleEndian">gyr_z</output>					
+        </bluetooth>
+    </input>
+    <output>
+	<!--
+		<bluetooth id="Keyfob" name="Keyfob">
+			
+			<input keep="false" char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="0">en</input>
+			<input keep="false" char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="1">rate</input>
+			<input keep="false" char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="2">range_acc</input>
+			<input keep="false" char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="3">range_gyr</input>
+			<input keep="false" char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="4">format</input>
+			<input keep="false" char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="5">config_n_times</input>
+			<input keep="false" char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="6">average</input>		
+        </bluetooth>
+	-->		
+    </output>	
+	<views>
+		<view label="Gyroscope">  
+			<graph label="Gyroscope X" timeOnX="true" labelX="time" unitX="s" labelY="ω" unitY="°/s" partialUpdate="true" hideTimeMarkers="true">
+				<input axis="x">gyr_timestamps</input>
+				<input axis="y">gyr_x</input>
+			</graph>
+			<value label="Gyroscope X" size="1" precision="2" scientific="false"  factor="1" unit="°/s">
+					<input>gyr_x</input>
+			</value>	
+
+			<graph label="Gyroscope Y" timeOnX="true" labelX="time" unitX="s" labelY="ω" unitY="°/s" partialUpdate="true" hideTimeMarkers="true">
+				<input axis="x">gyr_timestamps</input>
+				<input axis="y">gyr_y</input>
+			</graph>
+			<value label="Gyroscope Y" size="1" precision="2" scientific="false"  factor="1" unit="°/s">
+					<input>gyr_y</input>
+			</value>	
+
+			<graph label="Gyroscope Z" timeOnX="true" labelX="time" unitX="s" labelY="ω" unitY="°/s" partialUpdate="true" hideTimeMarkers="true">
+				<input axis="x">gyr_timestamps</input>
+				<input axis="y">gyr_z</input>
+			</graph>
+			<value label="Gyroscope Z" size="1" precision="2" scientific="false"  factor="1" unit="°/s" hideTimeMarkers="true">
+					<input>gyr_z</input>
+			</value>
+
+		</view>
+		<view label="Accelerometer">  
+			<graph label="Accelerometer X" timeOnX="true" labelX="time" unitX="s" labelY="a" unitY="m/s²" partialUpdate="true" hideTimeMarkers="true">
+				<input axis="x">acc_timestamps</input>
+				<input axis="y">acc_x</input>
+			</graph>
+			<value label="Accelerometer X" size="1" precision="2" scientific="false"  factor="1" unit="m/s²">
+					<input>acc_x</input>
+			</value>	
+
+			<graph label="Accelerometer Y" timeOnX="true" labelX="time" unitX="s" labelY="a" unitY="m/s²" partialUpdate="true" hideTimeMarkers="true">
+				<input axis="x">acc_timestamps</input>
+				<input axis="y">acc_y</input>
+			</graph>
+			<value label="Accelerometer Y" size="1" precision="2" scientific="false"  factor="1" unit="m/s²">
+					<input>acc_y</input>
+			</value>	
+
+			<graph label="Accelerometer Z" timeOnX="true" labelX="time" unitX="s" labelY="a" unitY="m/s²" partialUpdate="true" hideTimeMarkers="true">
+				<input axis="x">acc_timestamps</input>
+				<input axis="y">acc_z</input>
+			</graph>
+			<value label="Accelerometer Z" size="1" precision="2" scientific="false"  factor="1" unit="m/s²" hideTimeMarkers="true">
+					<input>acc_z</input>
+			</value>
+			<value label="COUNT VALUES" size="1" precision="2" scientific="false"  factor="1" unit="">
+					<input>acc_x_SI_count</input>
+			</value>			
+		</view>
+    </views>
+    <analysis optimization="true">
+
+		<count>
+			<input clear="false">acc_x</input>    		
+			<output>acc_x_SI_count</output>
+		</count>		
+    </analysis>
+    <export>
+        <set name="Raw Data">
+            <data name="Acc Time (s)">acc_timestamps</data>
+			<data name="Acc X (m/s²)">acc_x</data>
+			<data name="Acc Y (m/s²)">acc_y</data>
+			<data name="Acc Z (m/s²)">acc_z</data>				
+			<data name="Gyr Time (s)">gyr_timestamps</data>
+			<data name="Gyr X (°/s)">gyr_x</data>
+			<data name="Gyr Y (°/s)">gyr_y</data>
+			<data name="Gyr Z (°/s)">gyr_z</data>				
+        </set>
+    </export>
+</phyphox>

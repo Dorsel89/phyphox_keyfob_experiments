@@ -1,0 +1,236 @@
+<phyphox version="1.12">
+    <title>Acceleration V3</title>
+    <category>Keyfob</category>
+	<color>33dfff</color>
+    <description>LSM6DSR 6667Hz</description>
+	<translations>	
+	</translations>	
+    <data-containers>
+		<container size="0">acc_time</container>
+		
+
+		<container size="1">acc_x_SI_count</container>
+		<container size="0">debug_t2</container>
+
+		<container size="1">debug1</container>
+		<container size="1">debug2</container>
+		
+		<container size="0">acc_time_ramp</container>		
+		<container size="0">acc_timestamps</container>
+		<container size="1">acc_timestamps_count</container>
+		<container size="1">acc_package_endtime</container>
+
+		<container size="0">raw_count</container>
+
+		<container size="0">acc_x_raw</container>
+		<container size="0">acc_x_SI</container>
+		<container size="0">acc_x_if</container>
+		<container size="0">acc_x_raw_subrange</container>
+
+		<container size="0">acc_y_raw</container>
+		<container size="0">acc_y_SI</container>
+		<container size="0">acc_y_if</container>
+		<container size="0">acc_y_raw_subrange</container>
+
+		<container size="0">acc_z_raw</container>
+		<container size="0">acc_z_SI</container>
+		<container size="0">acc_z_if</container>
+		<container size="0">acc_z_raw_subrange</container>
+
+		<container size="0">acc_timestamps_subrange</container>								
+				
+		<container size="1" init="1">en</container>
+		<container size="1" init="10">rate</container>
+		<container size="1" init="1">range_acc</container>
+		<container size="1" init="1">range_gyr</container>
+		<container size="1" init="1">format</container>
+		<container size="1" init="40">config_n_times</container>
+		<container size="1" init="0">average</container>
+
+		<container size="15" init="0,0.78,1.56,3.125,6.25,12.5,25,50,100,200,400,800,1600,3200,6400">rate_table</container>
+
+    </data-containers>
+    <input>
+        <bluetooth id="Keyfob" name="Keyfob" mode="notification"  mtu="247">
+			<!--en, rate, range acc, range gyr, format, eventsize, average -->
+			<config char="cddf1002-30f7-4671-8b43-5e40ba53514a" conversion="hexadecimal">010A0101012800</config>
+			<!--<config char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="0">en</config>
+			
+			<config char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="1">rate</config>
+			<config char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="2">range_acc</config>
+			<config char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="3">range_gyr</config>
+			<config char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="4">format</config>
+			<config char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="5">config_n_times</config>
+			<config char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="6">average</config>
+			-->
+			<output char="cddf1001-30f7-4671-8b43-5e40ba53514a" offset="0" conversion="float32LittleEndian">acc_timestamps</output>
+			<output char="cddf1001-30f7-4671-8b43-5e40ba53514a" offset="4" repeating="6" conversion="int16LittleEndian">acc_x_raw</output>
+			<output char="cddf1001-30f7-4671-8b43-5e40ba53514a" offset="6" repeating="6" conversion="int16LittleEndian">acc_y_raw</output>
+			<output char="cddf1001-30f7-4671-8b43-5e40ba53514a" offset="8" repeating="6" conversion="int16LittleEndian">acc_z_raw</output>		
+        </bluetooth>
+    </input>
+    <output>
+		<!--
+		<bluetooth id="Keyfob" name="Keyfob">
+			
+			<input keep="false" char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="0">en</input>
+			<input keep="false" char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="1">rate</input>
+			<input keep="false" char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="2">range_acc</input>
+			<input keep="false" char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="3">range_gyr</input>
+			<input keep="false" char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="4">format</input>
+			<input keep="false" char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="5">config_n_times</input>
+			<input keep="false" char="cddf1002-30f7-4671-8b43-5e40ba53514a" length="1" conversion="singleByte" offset="6">average</input>		
+        </bluetooth>
+		-->
+    </output>	
+	<views>
+
+		<view label="Accelerometer">  
+		
+		<graph label="Accelerometer X" timeOnX="true" labelX="time" unitX="s" labelY="a" unitY="m/s²" partialUpdate="true" hideTimeMarkers="true">
+			<input axis="x">acc_time</input>
+			<input axis="y">acc_x_SI</input>
+		</graph>
+		<value label="Accelerometer X" size="1" precision="2" scientific="false"  factor="1" unit="m/s²">
+                <input>acc_x_SI</input>
+		</value>	
+
+		<graph label="Accelerometer Y" timeOnX="true" labelX="time" unitX="s" labelY="a" unitY="m/s²" partialUpdate="true" hideTimeMarkers="true">
+			<input axis="x">acc_time</input>
+			<input axis="y">acc_y_SI</input>
+		</graph>
+		<value label="Accelerometer Y" size="1" precision="2" scientific="false"  factor="1" unit="m/s²">
+                <input>acc_y_SI</input>
+		</value>	
+
+		<graph label="Accelerometer Z" timeOnX="true" labelX="time" unitX="s" labelY="a" unitY="m/s²" partialUpdate="true" hideTimeMarkers="true">
+			<input axis="x">acc_time</input>
+			<input axis="y">acc_z_SI</input>
+		</graph>
+		<value label="Accelerometer Z" size="1" precision="2" scientific="false"  factor="1" unit="m/s²" hideTimeMarkers="true">
+                <input>acc_z_SI</input>
+		</value>
+		<value label="COUNT VALUES" size="1" precision="2" scientific="false"  factor="1" unit="">
+                <input>acc_x_SI_count</input>
+		</value>			
+		</view>
+    </views>
+    <analysis optimization="true" requireFill="acc_timestamps" requireFillThreshold="4" timedRun="true" timedRunStartDelay="0" timedRunStopDelay="10">
+		<!-- generate time stamps part 1-->
+		<split>
+			<input as="data" clear="false">acc_timestamps</input>
+			<input as="index" clear="false" type="value">1</input>
+			<output as="out2" clear="true">acc_timestamps</output>
+			<output as="out1" clear="true">acc_timestamps_subrange</output>
+		</split>
+	  
+		<formula formula="[1]+([2]-1)/(7283*1)">
+			<input as="in" clear="false">acc_timestamps_subrange</input>
+			<input as="in" clear="false">config_n_times</input>
+			<output as="out" clear="true">acc_package_endtime</output>
+		</formula>
+		
+		<ramp>
+			<input as="start" clear="true">acc_timestamps_subrange</input>
+			<input as="stop" clear="true">acc_package_endtime</input>
+			<input as="length" clear="false" >config_n_times</input>
+			<output as="out" clear="false">acc_time</output>
+		</ramp>
+		<!-- generate time stamps part 2-->
+		<split>
+			<input as="data" clear="false">acc_timestamps</input>
+			<input as="index" clear="false" type="value">1</input>
+			<output as="out2" clear="true">acc_timestamps</output>
+			<output as="out1" clear="true">acc_timestamps_subrange</output>
+		</split>
+	  
+		<formula formula="[1]+([2]-1)/(7283*1)">
+			<input as="in" clear="false">acc_timestamps_subrange</input>
+			<input as="in" clear="false">config_n_times</input>
+			<output as="out" clear="true">acc_package_endtime</output>
+		</formula>
+		
+		<ramp>
+			<input as="start" clear="true">acc_timestamps_subrange</input>
+			<input as="stop" clear="true">acc_package_endtime</input>
+			<input as="length" clear="false" >config_n_times</input>
+			<output as="out" clear="false">acc_time</output>
+		</ramp>
+
+		<!-- generate time stamps part 3-->
+		<split>
+			<input as="data" clear="false">acc_timestamps</input>
+			<input as="index" clear="false" type="value">1</input>
+			<output as="out2" clear="true">acc_timestamps</output>
+			<output as="out1" clear="true">acc_timestamps_subrange</output>
+		</split>
+	  
+		<formula formula="[1]+([2]-1)/(7283*1)">
+			<input as="in" clear="false">acc_timestamps_subrange</input>
+			<input as="in" clear="false">config_n_times</input>
+			<output as="out" clear="true">acc_package_endtime</output>
+		</formula>
+		
+		<ramp>
+			<input as="start" clear="true">acc_timestamps_subrange</input>
+			<input as="stop" clear="true">acc_package_endtime</input>
+			<input as="length" clear="false" >config_n_times</input>
+			<output as="out" clear="false">acc_time</output>
+		</ramp>
+		<!-- generate time stamps part 4-->
+		<split>
+			<input as="data" clear="false">acc_timestamps</input>
+			<input as="index" clear="false" type="value">1</input>
+			<output as="out2" clear="true">acc_timestamps</output>
+			<output as="out1" clear="true">acc_timestamps_subrange</output>
+		</split>
+	  
+		<formula formula="[1]+([2]-1)/(7283*1)">
+			<input as="in" clear="false">acc_timestamps_subrange</input>
+			<input as="in" clear="false">config_n_times</input>
+			<output as="out" clear="true">acc_package_endtime</output>
+		</formula>
+		
+		<ramp>
+			<input as="start" clear="true">acc_timestamps_subrange</input>
+			<input as="stop" clear="true">acc_package_endtime</input>
+			<input as="length" clear="false" >config_n_times</input>
+			<output as="out" clear="false">acc_time</output>
+		</ramp>
+		<!-- calculate acc values START -->
+
+		<!-- X Y Z-->	
+		
+		<formula formula="[1_]*9.81*16/32768">
+			<input as="in" clear="true">acc_x_raw</input>
+			<!-- <input as="in" clear="false">selected_acc_range</input> -->
+			<output as="out" clear="false">acc_x_SI</output>
+		</formula>
+
+
+		<formula formula="[1_]*9.81*16/32768">
+			<input as="in" clear="true">acc_y_raw</input>
+			<!-- <input as="in" clear="false">selected_acc_range</input> -->
+			<output as="out" clear="false">acc_y_SI</output>
+		</formula>
+		
+		<formula formula="[1_]*9.81*16/32768">
+			<input as="in" clear="true">acc_z_raw</input>
+			<!-- <input as="in" clear="false">selected_acc_range</input> -->
+			<output as="out" clear="false">acc_z_SI</output>
+		</formula>		
+		<count>
+			<input clear="false">acc_x_SI</input>    		
+			<output>acc_x_SI_count</output>
+		</count>
+    </analysis>
+    <export>
+        <set name="Raw Data">
+            <data name="Time (s)">acc_time</data>
+			<data name="Acc X (m/s²)">acc_x_SI</data>
+			<data name="Acc Y (m/s²)">acc_y_SI</data>
+			<data name="Acc Z (m/s²)">acc_z_SI</data>				
+			
+        </set>
+    </export>
+</phyphox>
